@@ -5,8 +5,12 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/cards.png</File>
+    <File>C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/ScoreFont.spritefont</File>
+    <File>C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/table.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

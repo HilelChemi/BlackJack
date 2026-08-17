@@ -36,3 +36,5 @@ C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\obj\Debug\net9.0\refin
 C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\obj\Debug\net9.0\BlackJack.pdb
 C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\obj\Debug\net9.0\BlackJack.genruntimeconfig.cache
 C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\obj\Debug\net9.0\ref\BlackJack.dll
+C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\bin\Debug\net9.0\Content\table.xnb
+C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\bin\Debug\net9.0\Content\ScoreFont.xnb
