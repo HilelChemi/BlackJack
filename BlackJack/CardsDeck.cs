@@ -14,7 +14,7 @@ namespace BlackJack
         {
             reasetCards();
         }
-        private void reasetCards()
+        public void reasetCards()
         {
             cards.Clear();
             for (int shape = 0; shape < 4; shape++)

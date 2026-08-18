@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,5 +51,27 @@ namespace BlackJack
                 return 11;
             return num;
         }
+        public void drowDeck(SpriteBatch _spriteBatch, Texture2D _cardsTexture,int cardWidth, int cardHeight, Rectangle initDestinationRectangle)
+        {
+            card cardToDesplay;
+            Rectangle destinationRectangle;
+            for (int i = 0; i < cards.Count; i++)
+            {
+                cardToDesplay = cards[i];
+                Rectangle sourceRectangle = new Rectangle((cardToDesplay.value() - 1) * cardWidth, cardToDesplay.shape() * cardHeight, cardWidth, cardHeight);
+                destinationRectangle = initDestinationRectangle;
+                destinationRectangle.X -= (cards.Count() - i-1) * 30;
+                _spriteBatch.Draw(_cardsTexture, destinationRectangle, sourceRectangle, Color.White);
+            }
+        }
+        public card getFirstCard()
+        {
+            return cards[0];
+        }
+        public void removeFirst()
+        {
+            cards.RemoveAt(cards.Count - 1);
+        }
+
     }
 }

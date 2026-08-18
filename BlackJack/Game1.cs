@@ -20,8 +20,13 @@ namespace BlackJack
         private readonly int _virtualHeight = 600;
         private CardsDeck deck = new CardsDeck();
         private tableDeck playerTableDeck = new tableDeck();
-        card cardToDesplay = new card(-1,-1);
+        private dealer dealer;
+        card cardToDesplay = new card(-1, -1);
         private KeyboardState _previousKeyboardState;
+        private Rectangle playersDestinationRectangle;
+        private Rectangle dealersDestinationRectangle;
+        private int dealerCode = -3;
+        private bool displaymsg = false;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -31,6 +36,9 @@ namespace BlackJack
             Window.AllowUserResizing = true;
             _graphics.HardwareModeSwitch = false;
             _graphics.SynchronizeWithVerticalRetrace = true;
+            dealer = new dealer(deck);
+            playersDestinationRectangle = new Rectangle(370, 390, cardDisWidth, cardDisHeight);
+            dealersDestinationRectangle = new Rectangle(370, 100, cardDisWidth, cardDisHeight);
         }
 
         protected override void Initialize()
@@ -54,10 +62,30 @@ namespace BlackJack
 
             KeyboardState state = Keyboard.GetState();
 
-            if (state.IsKeyDown(Keys.Space)&& !_previousKeyboardState.IsKeyDown(Keys.Space))
+            if (!dealer.IsPlaying())
             {
-                cardToDesplay = deck.getNewCard();
-                playerTableDeck.addCard(cardToDesplay);
+                if (state.IsKeyDown(Keys.Space) && !_previousKeyboardState.IsKeyDown(Keys.Space))
+                {
+                    if (playerTableDeck.getSum() > 21)
+                    {
+                        playerTableDeck.reaset();
+                        deck.reasetCards();
+
+                    }
+                    cardToDesplay = deck.getNewCard();
+                    playerTableDeck.addCard(cardToDesplay);
+
+                }
+                else if (state.IsKeyDown(Keys.Enter) && !_previousKeyboardState.IsKeyDown(Keys.Enter))
+                {
+                    dealer.start(playerTableDeck.getSum());
+                }
+            }
+            else
+            {
+                dealerCode = dealer.update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                
+
             }
             _previousKeyboardState = state;
             base.Update(gameTime);
@@ -74,23 +102,47 @@ namespace BlackJack
             _spriteBatch.Begin(transformMatrix: transformMatrix);
             Rectangle baseScreenRectangle = new Rectangle(0, 0, _virtualWidth, _virtualHeight);
             _spriteBatch.Draw(_tableTexture, baseScreenRectangle, Color.White);
-            if (cardToDesplay.isCardGood())
-            {
-                Rectangle sourceRectangle = new Rectangle((cardToDesplay.value() - 1) * cardWidth, cardToDesplay.shape()*cardHeight, cardWidth, cardHeight);
-                Rectangle destinationRectangle = new Rectangle(370, 390, cardDisWidth, cardDisHeight);
 
-                _spriteBatch.Draw(_cardsTexture, destinationRectangle, sourceRectangle, Color.White);
-            }
+
+            playerTableDeck.drowDeck(_spriteBatch, _cardsTexture, cardWidth, cardHeight, playersDestinationRectangle);
+            dealer.GetTableDeck().drowDeck(_spriteBatch, _cardsTexture, cardWidth, cardHeight, dealersDestinationRectangle);
+
             int currentSum = playerTableDeck.getSum();
             string scoreText = $"Score: {currentSum}";
             int xOffset = currentSum < 10 ? 0 : -10;
 
-            _spriteBatch.DrawString(_font, $"{currentSum}",  new Vector2(392+ xOffset, 492), Color.Black);
+            _spriteBatch.DrawString(_font, $"{currentSum}", new Vector2(392 + xOffset, 492), Color.Black);
+            _spriteBatch.DrawString(_font, $"{currentSum}", new Vector2(390 + xOffset, 490), Color.Gold);
 
-            // ציור הטקסט הראשי מעל הצל
-            _spriteBatch.DrawString(_font, $"{currentSum}", new Vector2(390+ xOffset, 490), Color.Gold); _spriteBatch.End();
-
+            if (currentSum > 21)
+            {
+                drowText("Busted!",340, 300);
+            }
+            switch (dealerCode)
+            {
+                case 0:
+                    drowText("Split", 340, 200);
+                    break;
+                case 1:
+                    drowText("Lose", 340, 200);
+                    break;
+                case -1:
+                    drowText("Win!", 340, 200);
+                    break;
+                case -2:
+                    drowText("Busted", 340, 100);
+                    drowText("Win!", 340, 200);
+                    break;
+                default:
+                    break;
+            }
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
-    }
+        private void drowText(string text, int x, int y)
+        {
+            _spriteBatch.DrawString(_font, text, new Vector2(x+2, y+2), Color.Black);
+            _spriteBatch.DrawString(_font, text, new Vector2(x, y), Color.Gold);
+        }
+}
 }
