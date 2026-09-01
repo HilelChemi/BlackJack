@@ -21,6 +21,7 @@ namespace BlackJack
         }
         public void reaset()
         {
+            tableDeck.reaset();
             tableDeck.addCard(cardsDeck.getNewCard());
             upsideDownCard = cardsDeck.getNewCard();
             tableDeck.addCard(new card(3, 14));//updiseDown texture
@@ -35,7 +36,7 @@ namespace BlackJack
             if (isPlaying)
             {
                 if(_delayTimer<=0f)
-                    setTimer(0.5f);
+                    setTimer(1f);
                 if (_delayTimer > 0f)
                 {
                     _delayTimer -= dt;

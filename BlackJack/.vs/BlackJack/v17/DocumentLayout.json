@@ -9,14 +9,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F9948704-837E-4C37-9087-B4C49554BCB1}|BlackJack.csproj|c:\\users\\admin\\downloads\\magshimim\\sp\\blackjack\\blackjack\\tabledeck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9948704-837E-4C37-9087-B4C49554BCB1}|BlackJack.csproj|solutionrelative:tabledeck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9948704-837E-4C37-9087-B4C49554BCB1}|BlackJack.csproj|c:\\users\\admin\\downloads\\magshimim\\sp\\blackjack\\blackjack\\dealer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9948704-837E-4C37-9087-B4C49554BCB1}|BlackJack.csproj|solutionrelative:dealer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9948704-837E-4C37-9087-B4C49554BCB1}|BlackJack.csproj|c:\\users\\admin\\downloads\\magshimim\\sp\\blackjack\\blackjack\\cardsdeck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9948704-837E-4C37-9087-B4C49554BCB1}|BlackJack.csproj|solutionrelative:cardsdeck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -40,36 +32,9 @@
               "RelativeDocumentMoniker": "tableDeck.cs",
               "ToolTip": "C:\\Users\\admin\\Downloads\\magshimim\\sp\\BlackJack\\BlackJack\\tableDeck.cs",
               "RelativeToolTip": "tableDeck.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAcwD4AAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowDoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-18T10:01:21.786Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "dealer.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Downloads\\magshimim\\sp\\BlackJack\\BlackJack\\dealer.cs",
-              "RelativeDocumentMoniker": "dealer.cs",
-              "ToolTip": "C:\\Users\\admin\\Downloads\\magshimim\\sp\\BlackJack\\BlackJack\\dealer.cs",
-              "RelativeToolTip": "dealer.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAIA0wCAAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-18T09:31:19.498Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CardsDeck.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Downloads\\magshimim\\sp\\BlackJack\\BlackJack\\CardsDeck.cs",
-              "RelativeDocumentMoniker": "CardsDeck.cs",
-              "ToolTip": "C:\\Users\\admin\\Downloads\\magshimim\\sp\\BlackJack\\BlackJack\\CardsDeck.cs",
-              "RelativeToolTip": "CardsDeck.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-17T17:53:17.989Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-18T17:01:15.659Z"
             },
             {
               "$type": "Document",
@@ -79,7 +44,7 @@
               "RelativeDocumentMoniker": "Game1.cs",
               "ToolTip": "C:\\Users\\admin\\Downloads\\magshimim\\sp\\BlackJack\\BlackJack\\Game1.cs",
               "RelativeToolTip": "Game1.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAkwFYAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAANUAAAAAAAAAAAAwwN4AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-17T17:50:33.315Z",
               "EditorCaption": ""

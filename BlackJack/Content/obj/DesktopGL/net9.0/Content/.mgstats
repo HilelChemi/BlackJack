@@ -1,4 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/cards.png","C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/bin/DesktopGL/Content/cards.xnb","TextureProcessor","Texture2DContent",12911,537685,0.1898573
+"C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/chipsNoBack.png","C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/bin/DesktopGL/Content/chipsNoBack.xnb","TextureProcessor","Texture2DContent",681063,3848085,0.210925
 "C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/ScoreFont.spritefont","C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/bin/DesktopGL/Content/ScoreFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,70681,0.2544489
 "C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/table.png","C:/Users/admin/Downloads/magshimim/sp/BlackJack/BlackJack/Content/bin/DesktopGL/Content/table.xnb","TextureProcessor","Texture2DContent",160650,2664085,0.3113171

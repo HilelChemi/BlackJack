@@ -38,3 +38,4 @@ C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\obj\Debug\net9.0\Black
 C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\obj\Debug\net9.0\ref\BlackJack.dll
 C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\bin\Debug\net9.0\Content\table.xnb
 C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\bin\Debug\net9.0\Content\ScoreFont.xnb
+C:\Users\admin\Downloads\magshimim\sp\BlackJack\BlackJack\bin\Debug\net9.0\Content\chipsNoBack.xnb
