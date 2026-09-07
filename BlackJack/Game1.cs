@@ -15,7 +15,9 @@ namespace BlackJack
         Stack<int> chipsStack = new Stack<int>();
 
         Stack<int> prevChipsStack = new Stack<int>();
-        private Rectangle rebetButtonRect = new Rectangle(620, 400, 140, 45);
+        private Rectangle rebetButtonRect = new Rectangle(620, 380, 150, 50);
+        private Rectangle allInButtonRect = new Rectangle(300, 380, 150, 50);
+        private Rectangle reasetButtonRect = new Rectangle(280, 230, 250, 100);
         private Texture2D _pixelTexture;
 
         List<Rectangle> chipsToDespalyHitboxes = new List<Rectangle>();
@@ -45,7 +47,8 @@ namespace BlackJack
         private Rectangle playersDestinationRectangle;
         private Rectangle dealersDestinationRectangle;
         private int dealerCode = -3;
-        private int playersMoney = 2000;
+        private int initialMoney = 2000;
+        private int playersMoney = 0;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -62,7 +65,7 @@ namespace BlackJack
 
         protected override void Initialize()
         {
-            //reasetPlayingStats();
+            playersMoney = initialMoney;
             base.Initialize();
         }
 
@@ -153,10 +156,27 @@ namespace BlackJack
             return dest;
         }
         private void makeABet()
-        { 
+        {
+            float targetWidth = 800f;
+            float targetHeight = 600f;
+            float windowWidth = GraphicsDevice.Viewport.Width;
+            float windowHeight = GraphicsDevice.Viewport.Height;
+            float scaleX = targetWidth / windowWidth;
+            float scaleY = targetHeight / windowHeight;
+            Point pt = new Point
+                (
+                (int)(_currentMouseState.X * scaleX),
+                (int)(_currentMouseState.Y * scaleY)
+            );
             chipsToDespalyHitboxes.Clear();
-            drawRebetButton();
-            Rectangle chipsStackHitBox = new Rectangle();
+            if(prevChipsStack.Count > 0&&prevChipsStack.Sum()<=playersMoney) 
+                DrawButton("REBET",rebetButtonRect,pt);
+            if (playersMoney > 0)
+                DrawButton("ALL IN", allInButtonRect, pt);
+            else if(chipsStack.Count ==0)
+                DrawButton("REASET", reasetButtonRect, pt);
+
+                Rectangle chipsStackHitBox = new Rectangle();
             if (chipsStack.Count > 0)
                 chipsStackHitBox= drowChip(chipsStack.Peek(), true);
 
@@ -177,25 +197,21 @@ namespace BlackJack
                 }
                 if (_currentMouseState.LeftButton == ButtonState.Released && _previousMouseState.LeftButton == ButtonState.Pressed)//press
                 {
-                    float targetWidth = 800f;
-                    float targetHeight = 600f;
-                    float windowWidth = GraphicsDevice.Viewport.Width;
-                    float windowHeight = GraphicsDevice.Viewport.Height;
-                    float scaleX = targetWidth / windowWidth;
-                    float scaleY = targetHeight / windowHeight;
-                    Point pt = new Point
-                        (
-                        (int)(_currentMouseState.X * scaleX),
-                        (int)(_currentMouseState.Y * scaleY)
-                    );
-                    if (rebetButtonRect.Contains(pt)&& prevChipsStack.Sum()<=playersMoney)
+
+                    if (rebetButtonRect.Contains(pt) && prevChipsStack.Sum() <= playersMoney)
                     {
                         playersMoney += chipsStack.Sum();
                         chipsStack = new Stack<int>(prevChipsStack.ToArray().Reverse());
                         playersMoney -= chipsStack.Sum();
                     }
-                    if(!chipsStackHitBox.IsEmpty && chipsStackHitBox.Contains(pt))
-                        playersMoney+= chipsStack.Pop();
+                    else if (playersMoney + chipsStack.Sum() == 0 && reasetButtonRect.Contains(pt))
+                        playersMoney = initialMoney;
+                    else if (allInButtonRect.Contains(pt))
+                    {
+                        allIn();
+                    }
+                    else if (!chipsStackHitBox.IsEmpty && chipsStackHitBox.Contains(pt))
+                        playersMoney += chipsStack.Pop();
                     else
                         for (int i = 0; i < chipsToDespalyHitboxes.Count; i++)
                         {
@@ -213,7 +229,10 @@ namespace BlackJack
             int stackSum = chipsStack.Sum();
             if (stackSum > 0)
                 drowText(stackSum.ToString()+"$", 40, 200);
-            drowText(playersMoney.ToString() + "$", 40, 450);
+            if(playersMoney > 0)
+                drowText(playersMoney.ToString() + "$", 40, 450);
+            else if(stackSum ==0)
+                drowText("You are out of money!",reasetButtonRect.X-50,reasetButtonRect.Y-100);
         }
         private void drowPlayingThings(int betMoney)
         {
@@ -343,41 +362,52 @@ namespace BlackJack
             return true;
 
         }
-        private void drawRebetButton()
+        private void DrawButton(string text, Rectangle buttonRect, Point mousePt)
         {
-            if (prevChipsStack.Count == 0 || prevChipsStack.Sum() > playersMoney) 
-                return;
+            Vector2 baseTextSize = _font.MeasureString(text);
 
-            float scaleX = (float)_virtualWidth / GraphicsDevice.Viewport.Width;
-            float scaleY = (float)_virtualHeight / GraphicsDevice.Viewport.Height;
-            Point mousePt = new Point(
-                (int)(_currentMouseState.X * scaleX),
-                (int)(_currentMouseState.Y * scaleY)
-            );
+            int paddingX = 10;
+            int paddingY = 5;
+            float maxTextWidth = buttonRect.Width - (paddingX * 2);
+            float maxTextHeight = buttonRect.Height - (paddingY * 2);
 
-            bool isHovered = rebetButtonRect.Contains(mousePt);
+            float textScaleX = maxTextWidth / baseTextSize.X;
+            float textScaleY = maxTextHeight / baseTextSize.Y;
+            float textScale = Math.Min(textScaleX, textScaleY); 
 
+            Vector2 scaledTextSize = baseTextSize * textScale;
+
+            bool isHovered = buttonRect.Contains(mousePt);
             Color bgColor = isHovered ? new Color(40, 140, 60) : new Color(20, 80, 35);
             Color borderColor = isHovered ? Color.Gold : Color.DarkGoldenrod;
 
-            _spriteBatch.Draw(_pixelTexture, rebetButtonRect, bgColor);
+            _spriteBatch.Draw(_pixelTexture, buttonRect, bgColor);
 
             int borderWidth = 2;
-            _spriteBatch.Draw(_pixelTexture, new Rectangle(rebetButtonRect.X, rebetButtonRect.Y, rebetButtonRect.Width, borderWidth), borderColor); // עליון
-            _spriteBatch.Draw(_pixelTexture, new Rectangle(rebetButtonRect.X, rebetButtonRect.Bottom - borderWidth, rebetButtonRect.Width, borderWidth), borderColor); // תחתון
-            _spriteBatch.Draw(_pixelTexture, new Rectangle(rebetButtonRect.X, rebetButtonRect.Y, borderWidth, rebetButtonRect.Height), borderColor); // שמאל
-            _spriteBatch.Draw(_pixelTexture, new Rectangle(rebetButtonRect.Right - borderWidth, rebetButtonRect.Y, borderWidth, rebetButtonRect.Height), borderColor); // ימין
+            _spriteBatch.Draw(_pixelTexture, new Rectangle(buttonRect.X, buttonRect.Y, buttonRect.Width, borderWidth), borderColor);
+            _spriteBatch.Draw(_pixelTexture, new Rectangle(buttonRect.X, buttonRect.Bottom - borderWidth, buttonRect.Width, borderWidth), borderColor);
+            _spriteBatch.Draw(_pixelTexture, new Rectangle(buttonRect.X, buttonRect.Y, borderWidth, buttonRect.Height), borderColor);
+            _spriteBatch.Draw(_pixelTexture, new Rectangle(buttonRect.Right - borderWidth, buttonRect.Y, borderWidth, buttonRect.Height), borderColor);
 
-            string buttonText = "REBET";
-            Vector2 textSize = _font.MeasureString(buttonText);
-            Vector2 textPos = new Vector2
-            (
-                rebetButtonRect.X + (rebetButtonRect.Width - textSize.X) / 2,
-                rebetButtonRect.Y + (rebetButtonRect.Height - textSize.Y) / 2
+            Vector2 textPos = new Vector2(
+                buttonRect.X + (buttonRect.Width - scaledTextSize.X) / 2,
+                buttonRect.Y + (buttonRect.Height - scaledTextSize.Y) / 2
             );
 
-            _spriteBatch.DrawString(_font, buttonText, textPos + new Vector2(1, 1), Color.Black);
-            _spriteBatch.DrawString(_font, buttonText, textPos, isHovered ? Color.Yellow : Color.White);
+            _spriteBatch.DrawString(_font, text, textPos + new Vector2(1, 1), Color.Black, 0f, Vector2.Zero, textScale, SpriteEffects.None, 0f);
+            _spriteBatch.DrawString(_font, text, textPos, isHovered ? Color.Yellow : Color.White, 0f, Vector2.Zero, textScale, SpriteEffects.None, 0f);
+        }
+        private void allIn()
+        {
+            for (int i = chipsVals.Count()-1; i >=0; i--)
+            {
+                int heighestChipVal = chipsVals[i];
+                while (playersMoney >= heighestChipVal && playersMoney != 0)
+                {
+                    playersMoney -= heighestChipVal;
+                    chipsStack.Push(heighestChipVal);
+                }
+            }
         }
     }
 }
